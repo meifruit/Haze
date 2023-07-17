@@ -8,6 +8,7 @@ gem 'faker'
 gem "pundit"
 gem "pg_search"
 gem 'acts_as_favoritor'
+gem 'htmlbeautifier'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
