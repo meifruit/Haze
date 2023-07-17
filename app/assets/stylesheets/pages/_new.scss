@@ -1,0 +1,70 @@
+.booking-new {
+  background-image: url("fornewservice.png") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  object-fit: fill;
+  height: 100vw;
+  width: 100vw;
+}
+
+.service-new {
+  background-image: url("fornewservice2.jpg") !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  object-fit: fill;
+  height: 100vw;
+  width: 100vw;
+
+}
+
+.container-form {
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 600px;
+}
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .container-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+
+  .container-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .container-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .container-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .container-form {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,107 @@
+<div class="service-show-container">
+  <div class="service-title">
+    <h1><%= @service.title %></h1>
+  </div>
+  <div class="service-container">
+    <div class="left">
+      <div class="map-profile">
+        <ul class="profile-cards">
+          <% if @service.photos.attached?%>
+            <% @service.photos.each do |photo| %>
+              <li class="service-show-photo"><%= cl_image_tag(photo.key) %></li>
+            <% end %>
+          <% else %>
+            <li class="service-show-photo"><img src="https://i1.sndcdn.com/avatars-UaKAHbGfoeypwb8c-qkYTMg-t240x240.jpg" alt=""></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="detail">
+        <div class="name">
+          <h2><%= @service.user.name %></h2>
+        </div>
+        <div class="age-gender">
+          <div class="small-card">
+            <p>Age <%= @service.user.age %></p>
+          </div>
+          <div class="small-card">
+            <p><%= @service.user.sex.capitalize %></p>
+          </div>
+        </div>
+        <div class="map-description">
+          <div class="profile-description">
+            <div class="profile-icon">
+              <i class="fa-solid fa-earth-americas"></i>
+            </div>
+            <div class="profile-detail">
+              <strong>Interest</strong>
+              <p class="text-muted"><%= @service.user.interest%></p>
+            </div>
+            <div class="profile-icon">
+              <i class="fa-solid fa-hippo"></i>
+            </div>
+            <div class="profile-detail">
+              <strong>Description</strong>
+              <p class="text-muted"> <%= @service.user.description %></p>
+            </div>
+            <div class="profile-icon">
+              <i class="fa-solid fa-ban"></i>
+            </div>
+            <div class="profile-detail">
+              <strong>Cancelation fee $25</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-review" data-controller="review" >
+        <div class="reviews" data-review-target='items'>
+          <h1> <%= @reviews.length %> Reviews </h1>
+          <% @reviews.each do |review| %>
+            <%= render "reviews/review", review: review %>
+          <% end %>
+        </div>
+        <%= render "reviews/form", service: @service, review: Review.new %>
+      </div>
+    </div>
+    <div class="right">
+      <div class="map-show">
+        <div  style="width: 30vw; height: 40vh;"
+        data-controller="map"
+        data-map-markers-value="<%= @marker.to_json %>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+        <p>Location: <%= @service.user.location %></p>
+      </div>
+      <div class="to-booking">
+        <%# put condition for delete button %>
+        <% if current_user == @service.user %>
+          <div class="booking-card">
+            <h3>You are the owner of this offer.</h3>
+            <p>If you want to check someone booked you, please go to bookings page!</p>
+            <%= link_to "Go to bookings", bookings_path, class:"btn btn-primary" %>
+            <p></p>
+            <%= link_to service_path(@service), data: {turbo_method: :delete, turbo_confirm: "Delete this offer? Are you sure? 😢"} do %>
+              <i class="fa-solid fa-trash-can" style="color: #00cecb;"></i>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="booking-card" data-controller="price">
+            <div class="price-booking">
+              <h5>$<span data-price-target="price"><%= @service.price %></span></h5>
+              <p>&emsp;per day</p>
+            </div>
+            <%= simple_form_for [@service, @booking], data: { controller: 'flatpickr' } do |f| %>
+              <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime", action: "change->price#calculate", price_target: "startTime" }  }  %>
+              <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime", price_target: "endTime" }, id: 'end_time' } %>
+              <%= f.submit "Book!",class:"btn btn-flat" %>
+            <% end %>
+            <div class="price-detail">
+              <p class="text-muted">Price: $<span data-price-target="total"><%= @service.price %></span></p>
+              <p class="text-muted">Tax: $30</p>
+            </div>
+            <div class="final-price">
+              <b>Total with taxes $<span data-price-target="lasttotal"><%= @service.price + 30%></span></b>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>

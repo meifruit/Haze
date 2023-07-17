@@ -1,0 +1,31 @@
+<div class="cards-services" id="cards-services">
+  <% @services.each do |service| %>
+    <div class="card-service">
+      <div class="service-photo position-relative" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= service.photos.attached? ? cl_image_path(service.photos.first.key) : "https://i1.sndcdn.com/avatars-UaKAHbGfoeypwb8c-qkYTMg-t240x240.jpg"%>)">
+        <%= link_to toggle_favorite_service_path(service), class: "position-absolute top-0" do %>
+
+          <% if user_signed_in? %>
+            <i class="<%= @user.favorited?(service) ? "fa-solid fa-heart" : "fa-regular fa-heart" %>fa-lg custom-icon" ></i>
+          <% end %>
+
+        <% end %>
+      </div>
+      <%= link_to service_path(service), class:'text-decoration-none' do%>
+        <div class="card-info">
+          <div class="header">
+            <h4><%= service.user.name %>,  <%= service.user.age %></h4>
+          </div>
+          <p class="text-muted"><%= service.title %></p>
+          <div class="location">
+            <i class="fa-solid fa-location-dot" style="color: #511f37;"></i>
+            <p class="text-muted"><%= service.user.location %></p>
+          </div>
+          <div class="price">
+            <i class="fa-solid fa-dollar-sign" style="color: #511f37;"></i>
+            <p><%= service.price %>  per day</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

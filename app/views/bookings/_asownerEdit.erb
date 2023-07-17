@@ -1,0 +1,10 @@
+<div class="edit">
+  <div class="container-form">
+    <h1>Edit your booking</h1>
+    <h2>In this booking, you are booked by <%= @booking.user.name %></h2>
+    <%= simple_form_for @booking, data: { controller: 'flatpickr' } do |f| %>
+      <%= f.input :status, placeholder: 'Status' %>
+      <%= f.submit 'Submit', class:"btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

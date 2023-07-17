@@ -1,0 +1,176 @@
+<div class="container-book">
+  <ul class="nav tabs-underlined justify-content-center" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <span class="nav-link tab-underlined active" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings-tab-pane" role="tab" aria-controls="bookings-tab-pane" aria-selected="true">Your Bookings</span>
+    </li>
+    <li class="nav-item" role="presentation" style="margin-right: 42px">
+      <span class="nav-link tab-underlined" id="insert-tab" data-bs-toggle="tab" data-bs-target="#insert-tab-pane" role="tab" aria-controls="insert-tab-pane" aria-selected="false">Bookings in progress</span>
+    </li>
+    <li class="nav-item" role="presentation">
+      <span class="nav-link tab-underlined" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests-tab-pane" role="tab" aria-controls="requests-tab-pane" aria-selected="false">Waiting your approval</span>
+    </li>
+    <li class="nav-item" role="presentation">
+      <span class="nav-link tab-underlined" id="conversations-tab" data-bs-toggle="tab" data-bs-target="#conversations-tab-pane" role="tab" aria-controls="conversations-tab-pane" aria-selected="false">Checked</span>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade py-3 show active" id="bookings-tab-pane" role="tabpanel" aria-labelledby="bookings-tab" tabindex="0">
+      <div class="d-flex flex-column align-items-center" >
+        <h1>Partners you booked</h1>
+        <% @pending_bookings.each do |booking| %>
+          <div class="card-product">
+            <% if booking.service.photos.first %>
+              <%= cl_image_tag(booking.service.photos.first.key) %>
+            <% else %>
+              <%= image_tag "icon.png" %>
+            <% end %>
+            <div class="card-product-infos">
+              <div>
+                <h5><%= "#{booking.service.user.name}" %></h5>
+                <h5><%= "#{booking.service.title}" %></h5>
+                <h5><%= "#{booking.service.user.location}" %></h5>
+              </div>
+              <div>
+                <p>From <%=  booking.start_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                <p>To <%= booking.end_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+              </div>
+              <h4><%= booking.status%></h4>
+              <% if policy(booking).edit? %>
+                <div class=".text-right">
+                  <%= link_to "Cancel", booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure? 😢"},class:"btn btn-primary"%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div class="tab-pane fade py-3" id="insert-tab-pane" role="tabpanel" aria-labelledby="insert-tab" tabindex="0">
+      <div >
+        <div class="d-flex flex-column align-items-center">
+          <h1>Once your great dating completed, please submit your review!</h1>
+          <% @current_user_bookings.each do |booking| %>
+            <% if booking.status != "pending" %>
+              <div class="card-product">
+                <% if booking.service.photos.first %>
+                  <%= cl_image_tag(booking.service.photos.first.key) %>
+                <% else %>
+                  <%= image_tag "icon.png" %>
+                <% end %>
+                <div class="card-product-infos">
+                  <div>
+                    <h5><%= "#{booking.service.user.name}" %></h5>
+                    <h5><%= "#{booking.service.title}" %></h5>
+                    <h5><%= "#{booking.service.user.location}" %></h5>
+                  </div>
+                  <div>
+                    <p>From <%= booking.start_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                    <p>To <%= booking.end_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                  </div>
+                  <h4><%= booking.status%></h4>
+                  <% if booking.status == "accepted"%>
+                    <% if policy(booking).edit? %>
+                      <div class="text-right">
+                        <%= simple_form_for booking do |f| %>
+                          <%= f.input :status, as: :hidden, input_html: { value: 'completed'} %>
+                          <%= f.submit "Completed", class:"btn btn-primary" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% elsif booking.status == "rejected" %>
+                    <%= link_to "Delete", booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure? 😢"},class:"btn btn-primary" %>
+                  <% elsif booking.status == "completed" %>
+                    <%# need to change here as review button or something %>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Add Review
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content container-review">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-2" id="exampleModalLabel">Review</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <%= simple_form_for([booking.service, @review] ) do |f| %>
+                              <%= f.input :rating %>
+                              <%= f.input :comment %>
+                              <%= f.submit class: "btn btn-flat" %>
+                            <% end %>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <%# need to change here as review button or something %>
+                    <%= link_to "Delete", booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure? 😢"},class:"btn btn-primary" %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade py-3" id="requests-tab-pane" role="tabpanel" aria-labelledby="requests-tab" tabindex="0">
+      <div >
+        <div class="d-flex flex-column align-items-center">
+          <h1>Please select Accept or Reject</h1>
+          <% @none_rejected_bookings.each do |booking| %>
+            <div class="card-product">
+              <div class="card-product-infos">
+                <h5>Booked by <%= "#{booking.user.name}" %></h5>
+                <div>
+                  <p>From <%= booking.start_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                  <p>To <%= booking.end_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                </div>
+                <h4><%= booking.status%></h4>
+                <div>
+                  <%= simple_form_for booking, html: { onchange:"submit()"}  do |t| %>
+                    <%= t.input :status, collection: ["pending","rejected", "accepted"], include_blank: false  %>
+                  <% end %>
+                  <% if booking.status == "rejected" %>
+                    <%= link_to "Delete", booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure? 😢"},class:"btn btn-primary" %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade py-3" id="conversations-tab-pane" role="tabpanel" aria-labelledby="conversations-tab" tabindex="0">
+      <div>
+        <div class="d-flex flex-column align-items-center">
+          <h1>Checked List</h1>
+          <% current_user.bookings_as_owner.each do |booking| %>
+            <% if booking.status != "pending" %>
+              <div class="card-product">
+                <div class="card-product-infos">
+                  <h5>Booked by <%= "#{booking.user.name}" %></h5>
+                  <div>
+                    <p>From <%= booking.start_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                    <p>To <%= booking.end_date.strftime("%B %d, %Y at %I:%M %p") %></p>
+                  </div>
+                  <h4><%= booking.status%></h4>
+                  <div class="m-4">
+                    <%= simple_form_for booking, html: { onchange:"submit()"}  do |t| %>
+                      <%= t.input :status, collection: ["pending","rejected", "accepted"], include_blank: false %>
+                    <% end %>
+                    <% if booking.status == "rejected" %>
+                      <%= link_to "Delete", booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure? 😢"},class:"btn btn-primary mb-2" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

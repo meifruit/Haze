@@ -1,0 +1,14 @@
+<div class="service-new">
+  <div class="container-form">
+    <h1>New offer from you!?</h1>
+    <h2>Submit this form right now!!</h2>
+    <%= simple_form_for(@service) do |f| %>
+      <%= f.input :title %>
+      <%= f.input :price %>
+      <%= f.input :description %>
+      <%= f.input :photos, as: :file, input_html: { multiple: true } %>
+      <%= f.submit "Offer!", class:"btn btn-primary" %>
+    <% end %>
+    <br>
+  </div>
+</div>

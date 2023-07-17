@@ -1,0 +1,11 @@
+<br>
+<h3> <%= review.user.name  %> </h3>
+<div class="d-flex justify-content-between">
+  <p> 5/<%=review.rating%> <%= '❤️' * review.rating %> </p>
+  <%= link_to review_path(review),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+      <i class="fa-solid fa-trash" style="color: #00b8b5;"></i>
+    <% end %>
+</div>
+<p> <%= review.comment  %> </p>
+<br>

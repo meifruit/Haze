@@ -1,0 +1,7 @@
+<%= simple_form_for(
+  [service, review],
+  data: {review_target: "form", action: "submit->review#send"}) do |f| %>
+    <%= f.input :rating %>
+    <%= f.input :comment %>
+    <%= f.submit class: "btn btn-flat"%>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="edit">
+  <div class="container-form">
+    <h1>Edit your booking</h1>
+    <h2>In this booking, your partner is <%= @booking.user.name %></h2>
+    <%= simple_form_for @booking, data: { controller: 'flatpickr' } do |f| %>
+      <%= f.input :start_date, as: :string, input_html: { data: { flatpickr_target: "startTime" }  }  %>
+      <%= f.input :end_date, as: :string, input_html: { data: { flatpickr_target: "endTime" }, id: 'end_time' } %>
+      <%= f.input :status, placeholder: 'Status' %>
+      <%= f.submit 'Submit', class:"btn btn-primary" %>
+    <% end %>
+    <%= link_to "Back", bookings_path %>
+  </div>
+</div>

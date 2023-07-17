@@ -1,0 +1,111 @@
+.container-services {
+  margin-top: 2rem;
+}
+
+.cards-services {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 32px;
+  margin: 20px;
+}
+
+.card-service {
+  display: flex;
+  color: black;
+}
+
+.search-bar {
+justify-content: space-between;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+.location i{
+  margin-right: 4px;
+}
+
+
+.card-service {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 0px 16px rgba(0, 0, 0, 0.3);
+}
+.service-photo {
+  width: auto;
+  min-height: 100;
+  height: 30vh;
+  border-radius: 4px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.card-info {
+  padding: 16px 16px;
+  overflow: hidden;
+}
+
+.card-info .header p {
+  font-weight: bold;
+}
+.card-info p {
+  margin: 0;
+}
+.card-service:hover {
+  transition: 0.2s ease-out;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.custom-icon {
+  position:absolute;
+  top: 15px;
+  left: 10px;
+}
+
+
+// Smallest device
+@media (min-width: 370px) {
+  .cards-services {
+    grid-template-columns: 1fr;
+
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .cards-services {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .cards-services {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .cards-services {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .cards-services {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
