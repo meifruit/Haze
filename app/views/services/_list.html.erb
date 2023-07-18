@@ -3,11 +3,9 @@
     <div class="card-service">
       <div class="service-photo position-relative" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= service.photos.attached? ? cl_image_path(service.photos.first.key) : "https://i1.sndcdn.com/avatars-UaKAHbGfoeypwb8c-qkYTMg-t240x240.jpg"%>)">
         <%= link_to toggle_favorite_service_path(service), class: "position-absolute top-0" do %>
-
           <% if user_signed_in? %>
             <i class="<%= @user.favorited?(service) ? "fa-solid fa-heart" : "fa-regular fa-heart" %>fa-lg custom-icon" ></i>
           <% end %>
-
         <% end %>
       </div>
       <%= link_to service_path(service), class:'text-decoration-none' do%>
