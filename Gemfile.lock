@@ -126,6 +126,7 @@ GEM
     geocoder (1.8.1)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    htmlbeautifier (1.4.2)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -291,8 +292,9 @@ DEPENDENCIES
   devise
   dotenv-rails
   faker
-  font-awesome-sass (~> 6.1)
+  font-awesome-sass (~> 6.4.0)
   geocoder
+  htmlbeautifier
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

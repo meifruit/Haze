@@ -8,6 +8,7 @@ gem 'faker'
 gem "pundit"
 gem "pg_search"
 gem 'acts_as_favoritor'
+gem 'htmlbeautifier'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -64,7 +65,9 @@ gem "cloudinary"
 gem "geocoder"
 
 gem "autoprefixer-rails"
-gem "font-awesome-sass", "~> 6.1"
+# gem "font-awesome-sass", "~> 6.1"
+gem "font-awesome-sass", "~> 6.4.0"
+
 gem "simple_form", github: "heartcombo/simple_form"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
