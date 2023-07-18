@@ -1,12 +1,13 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Dancing+Script&family=Karla:wght@200&family=Zeyada&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Dancing+Script&family=Karla:wght@200&family=Zeyada&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:wght@300&family=Handlee&display=swap");
 
 // Define fonts for body and headers
 
-$headers-font: 'Dancing Script', cursive;
-$sub-headers-font: 'Caveat', cursive;
-$body-font: 'Caveat', cursive;
+$headers-font: "Exo 2", cursive;
+$sub-headers-font: "Handlee", cursive;
+$body-font: "Handlee", cursive;
 // To use a font file (.woff) uncomment following lines
 // @font-face {
 //   font-family: "Font Name";
