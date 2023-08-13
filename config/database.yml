@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
-  database: HappyEnding_production
-  username: HappyEnding
-  password: <%= ENV["HAPPYENDING_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  # database: HappyEnding_production
+  # username: HappyEnding
+  # password: <%= ENV["HAPPYENDING_DATABASE_PASSWORD"] %>
