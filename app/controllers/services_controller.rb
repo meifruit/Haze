@@ -18,17 +18,35 @@ class ServicesController < ApplicationController
     end
   end
 
+  # def show
+  #   @service = Service.find(params[:id])
+  #   @reviews = @service.reviews
+  #   @review = Review.new
+  #   @booking = Booking.new
+  #   authorize @service
+  #   @marker = [{
+  #     lat: @service.user.geocode[0],
+  #     lng: @service.user.geocode[1]
+  #   }]
+  # end
+
   def show
     @service = Service.find(params[:id])
     @reviews = @service.reviews
     @review = Review.new
     @booking = Booking.new
     authorize @service
-    @marker = [{
+
+    @marker = []
+
+    if @service.user&.geocode.present?
+    @marker << {
       lat: @service.user.geocode[0],
       lng: @service.user.geocode[1]
-    }]
+    }
+    end
   end
+
 
   def new
     @service = Service.new
