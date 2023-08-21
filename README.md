@@ -3,10 +3,13 @@ Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/ra
 
 <p align="center">Dating application</p>
 
+- Browse through a diverse range of profiles to find the perfect match for your next date.
 <img src="https://github.com/meifruit/Hive/blob/master/app/assets/images/index.png"/>
 
-
+- Seamlessly book a date with your chosen person, just like booking accommodations on Airbnb.
 <img src="https://github.com/meifruit/Hive/blob/master/app/assets/images/show.png"/>
+
+- Keep track of your upcoming dates and receive notifications about important updates.
 <img src="https://github.com/meifruit/Hive/blob/master/app/assets/images/status.png"/>
  
 <br>
